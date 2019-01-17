@@ -1,0 +1,45 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.2.RELEASE'
+	}
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('se.transmode.gradle:gradle-docker:1.2')
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'docker'
+
+group = 'gcr.io/demoproject-dev2'
+version = '0.1'
+sourceCompatibility = '1.8'
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task copyJar(type: Copy) {
+	dependsOn   'build'
+	from        "build/libs/demoservice-${project.version}.jar"
+	into        'build/docker'
+}
+
+task buildDocker(type: Docker, dependsOn: copyJar) {
+	baseImage "java:8"
+	runCommand("mkdir demoservice")
+	addFile("demoservice-${project.version}.jar","demoservice/")
+	workingDir("/demoservice")
+	runCommand("unzip -q demoservice-${project.version}.jar")
+	entryPoint(["java","-Xms128m","-Xmx1024m","-cp", "/demoservice-config:.","org.springframework.boot.loader.JarLauncher"])
+}
