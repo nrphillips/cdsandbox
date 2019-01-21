@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-source settings.sh
+## You'll need to set this variable to the location of the directory containing this script.
+## Don't know how to import it from the environment yet.
+SPIN_INSTALL_SOURCE=~/projects/cdsandbox/deployment
 
-kubectl config set-context ${KUBE_CONTEXT}
-kubectl config set current-context ${KUBE_CONTEXT}
+source ${SPIN_INSTALL_SOURCE}/settings.sh
+source ${SPIN_INSTALL_SOURCE}/scripts/setup-cluster.sh
+source ${SPIN_INSTALL_SOURCE}/scripts/setup-kube.sh
+source ${SPIN_INSTALL_SOURCE}/scripts/setup-gcr.sh
 
-source ./scripts/setup-cluster.sh
-source ./scripts/setup-kube.sh
-source ./scripts/setup-gcr.sh
+# Enable the docker-registry provider
+hal config provider docker-registry enable
 
 # Add the registry provider to spinnaker
 hal config provider docker-registry account add ${DOCKER_REGISTRY_ACCOUNT} \
@@ -22,18 +25,15 @@ hal config provider docker-registry account add ${DOCKER_REGISTRY_ACCOUNT} \
 # pick this up without having to add the repository explicitly, but I found that to not be the case so
 # I had to add it by hand.
 
-#hal config provider docker-registry account edit ${DOCKER_REGISTRY_ACCOUNT} --add-repository ${DOCKER_REPOSITORY}
+hal config provider docker-registry account edit ${DOCKER_REGISTRY_ACCOUNT} --add-repository ${DOCKER_REPOSITORY}
 
-# Enable the docker-registry provider
-hal config provider docker-registry enable
 
 # Add the kubernetes account that spinnaker will use to access kube.
 KUBE_CONTEXT=$(kubectl config current-context)
 
 hal config provider kubernetes account add ${KUBE_ACCOUNT_V1} \
+    --provider-version v1 \
     --docker-registries ${DOCKER_REGISTRY_ACCOUNT}
-
-#    --provider-version v1 \
 
 # Ensure kubernetes is enabled
 hal config provider kubernetes enable
