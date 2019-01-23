@@ -1,0 +1,20 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "demoservice-lb"
+  namespace: "default"
+  labels:
+    app: "demoservice"
+    app.kubernetes.io/managed-by: "spinnaker"
+    app.kubernetes.io/name: "test"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 8000
+  selector:
+    app: "demoservice"
+  type: "LoadBalancer"
+  loadBalancerIP: ""
+

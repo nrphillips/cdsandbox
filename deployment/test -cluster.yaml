@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nptest2
+  name: nptest2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nptest2
+  template:
+    metadata:
+      labels:
+        app: nptest2
+    spec:
+      containers:
+        - image: gcr.io/np-beta/demoservice:0.1
+          name: nptest2
+          ports:
+          - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000

@@ -11,6 +11,6 @@ public class DemoServiceRestController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
 
     public String getVersion() {
-        return "DemoService v0.0.1";
+        return "DemoService v0.3";
     }
 }

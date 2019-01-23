@@ -37,4 +37,4 @@ gcloud iam service-accounts keys create -q ${SPINNAKER_GCR_SERVICE_ACCOUNT_DEST}
     --iam-account ${SPINNAKER_GCR_SERVICE_ACCOUNT_EMAIL}
 
 # grant permissions on the bucket to the service account
-gsutil iam ch serviceAccount:${SPINNAKER_GCR_SERVICE_ACCOUNT_EMAIL}:roles/storage.admin gs://${SPINNAKER_INSTALL_GCSBUCKET_NAME}
+#gsutil iam ch serviceAccount:${SPINNAKER_GCR_SERVICE_ACCOUNT_EMAIL}:roles/storage.admin gs://${SPINNAKER_INSTALL_GCSBUCKET_NAME}

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: demoservice
+  name: demoservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demoservice
+  template:
+    metadata:
+      labels:
+        app: demoservice
+    spec:
+      containers:
+        - image: gcr.io/np-beta/demoservice
+          name: demoservice
+          ports:
+          - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000

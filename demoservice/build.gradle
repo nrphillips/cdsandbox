@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'docker'
 
 group = 'gcr.io/np-beta'
-version = '0.1'
+version = '0.3'
 sourceCompatibility = '1.8'
 
 repositories {

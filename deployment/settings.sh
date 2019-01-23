@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+usr/bin/env bash
 
 # Set this to the relevant spinnaker version. I think we can put "latest" in here.
 SPINNAKER_VERSION=1.10.11
@@ -35,6 +36,10 @@ SPINNAKER_DEPLOY_CLUSTER_ZONE=us-east1-b
 SPINNAKER_INSTALL_GCSBUCKET_LOCATION=us
 SPINNAKER_INSTALL_GCSBUCKET_NAME=nrp0110-spin-data
 
+# for v2 deployments I'm setting this bucket up as a place to retrieve the manifests.
+#SPINNAKER_DEPLOY_MANIFESTSBUCKET_LOCATION=us
+#SPINNAKER_DEPLOY_MANIFESTSBUCKET_NAME=nrp0110-spin-manifests
+
 # gcloud account that spinnaker uses to access GCS
 SPINNAKER_GCS_SERVICE_ACCOUNT=spin-gcs-account
 SPINNAKER_GCS_SERVICE_ACCOUNT_DEST=~/.gcp/gcs-account.json
@@ -51,6 +56,8 @@ DOCKER_REPOSITORY=${SPINNAKER_INSTALL_PROJECT_NAME}/demoservice
 
 KUBE_ACCOUNT_V1_INSTALL=spin-k8s-v1-install-account
 KUBE_ACCOUNT_V1_DEPLOY=spin-k8s-v1-deploy-account
+KUBE_ACCOUNT_V2_INSTALL=spin-k8s-v2-install-account
+KUBE_ACCOUNT_V2_DEPLOY=spin-k8s-v2-deploy-account
 
 #KUBE_ACCOUNT_V2=spin-k8s-v2-account
 #KUBE_CONTEXT=gke_np-alpha_us-east1-b_np-dev
