@@ -10,10 +10,8 @@ source ${SPIN_INSTALL_SOURCE}/settings.sh
 hal deploy clean -q
 
 kubectl config unset current-context
-CONTEXT=$(kubectl config get-contexts -oname)
-kubectl config delete-context $CONTEXT
-
-KUBE_CLUSTER_FULLNAME=${SPINNAKER_INSTALL_CLUSTER}-${SPINNAKER_INSTALL_CLUSTER_VER}
+kubectl config delete-context ${KUBE_INSTALL_CONTEXT}
+kubectl config delete-context ${KUBE_DEPLOY_CONTEXT}
 
 # First get gcloud's default settings aligned with the project
 gcloud config set compute/region ${SPINNAKER_INSTALL_CLUSTER_REGION}
@@ -38,10 +36,12 @@ gcloud iam service-accounts delete -q ${SPINNAKER_GCR_SERVICE_ACCOUNT_EMAIL}
 hal config provider docker-registry account delete ${DOCKER_REGISTRY_ACCOUNT}
 hal config provider docker-registry disable
 
-hal config provider kubernetes account delete ${KUBE_ACCOUNT_V1}
+hal config provider kubernetes account delete ${KUBE_ACCOUNT_V1_INSTALL}
+hal config provider kubernetes account delete ${KUBE_ACCOUNT_V1_DEPLOY}
 hal config provider kubernetes disable
 
 # Remove the storage bucket that spinnaker uses to maintain it's state.
 gsutil rm -r gs://${SPINNAKER_INSTALL_GCSBUCKET_NAME}/
 
-gcloud container clusters delete -q ${KUBE_CLUSTER_FULLNAME}
+gcloud container clusters delete -q ${SPINNAKER_DEPLOY_CLUSTER_FULLNAME}
+gcloud container clusters delete -q ${SPINNAKER_INSTALL_CLUSTER_FULLNAME}

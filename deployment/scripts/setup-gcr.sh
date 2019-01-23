@@ -3,7 +3,7 @@
 #source settings.sh
 
 ## ######################################################################################
-## Support for triggering pipelines based on a docker file
+## Support for docker images
 ## ######################################################################################
 
 ## Set up a spinnaker provider for the Google Container Registry.

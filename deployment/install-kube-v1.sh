@@ -27,19 +27,31 @@ hal config provider docker-registry account add ${DOCKER_REGISTRY_ACCOUNT} \
 
 hal config provider docker-registry account edit ${DOCKER_REGISTRY_ACCOUNT} --add-repository ${DOCKER_REPOSITORY}
 
+# Add the kubernetes account that spinnaker will use to access the installation kubernetes cluster.
+#KUBE_CONTEXT=$(kubectl config current-context)
 
-# Add the kubernetes account that spinnaker will use to access kube.
-KUBE_CONTEXT=$(kubectl config current-context)
-
-hal config provider kubernetes account add ${KUBE_ACCOUNT_V1} \
+hal config provider kubernetes account add ${KUBE_ACCOUNT_V1_INSTALL} \
     --provider-version v1 \
+    --context ${KUBE_INSTALL_CONTEXT} \
     --docker-registries ${DOCKER_REGISTRY_ACCOUNT}
+
+#hal config provider kubernetes account delete ${KUBE_ACCOUNT_V1_INSTALL}
+#hal config provider kubernetes account delete ${KUBE_ACCOUNT_V1_DEPLOY}
+
+#hal config provider kubernetes account edit ${KUBE_ACCOUNT_V1_INSTALL} \
+
+hal config provider kubernetes account add ${KUBE_ACCOUNT_V1_DEPLOY} \
+    --provider-version v1 \
+    --context ${KUBE_DEPLOY_CONTEXT} \
+    --docker-registries ${DOCKER_REGISTRY_ACCOUNT}
+
+#hal config provider kubernetes account edit ${KUBE_ACCOUNT_V1_DEPLOY} \
 
 # Ensure kubernetes is enabled
 hal config provider kubernetes enable
 
 ## Install Spinnaker on Kubernetes
-hal config deploy edit --type distributed --account-name ${KUBE_ACCOUNT_V1}
+hal config deploy edit --type distributed --account-name ${KUBE_ACCOUNT_V1_INSTALL}
 
 # Need to bounce halyard by shutting down then issuing any hal command
 hal shutdown

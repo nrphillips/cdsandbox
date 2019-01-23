@@ -45,3 +45,11 @@ gcloud container clusters get-credentials ${SPINNAKER_INSTALL_CLUSTER_FULLNAME} 
     -q --zone ${SPINNAKER_INSTALL_CLUSTER_ZONE} \
     --project ${SPINNAKER_INSTALL_PROJECT_NAME}
 
+# Set up the deployment clusters
+gcloud container clusters create ${SPINNAKER_DEPLOY_CLUSTER_FULLNAME} \
+    -q --num-nodes=1 --machine-type=n1-standard-2 --cluster-version=latest \
+    --enable-legacy-authorization
+
+gcloud container clusters get-credentials ${SPINNAKER_DEPLOY_CLUSTER_FULLNAME} \
+    -q --zone ${SPINNAKER_DEPLOY_CLUSTER_ZONE} \
+    --project ${SPINNAKER_DEPLOY_PROJECT_NAME}

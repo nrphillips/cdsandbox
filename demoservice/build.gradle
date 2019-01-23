@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'docker'
 
-group = 'gcr.io/demoproject-dev2'
+group = 'gcr.io/np-beta'
 version = '0.1'
 sourceCompatibility = '1.8'
 
@@ -34,6 +34,21 @@ task copyJar(type: Copy) {
 	from        "build/libs/demoservice-${project.version}.jar"
 	into        'build/docker'
 }
+//
+//task buildDocker(type: Docker, dependsOn: copyJar) {
+//	baseImage "alpine:edge"
+//	maintainer("nrp0110@gmail.com")
+//	runCommand("apk add --no-cache openjdk8")
+//	runCommand("cp files/UnlimitedJCEPolicyJDK8/* /usr/lib/jvm/java-1.8-openjdk/jre/lib/security/")
+//
+//	runCommand("mkdir demoservice")
+//
+//	addFile("demoservice-${project.version}.jar","demoservice/")
+//	workingDir("/demoservice")
+//	runCommand("unzip -q demoservice-${project.version}.jar")
+//	entryPoint(["/usr/bin/java","-jar", "/opt/spring-cloud/lib/spring-cloud-config-server.jar"])
+//}
+
 
 task buildDocker(type: Docker, dependsOn: copyJar) {
 	baseImage "java:8"
