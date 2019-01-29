@@ -53,3 +53,4 @@ gcloud container clusters create ${SPINNAKER_DEPLOY_CLUSTER_FULLNAME} \
 gcloud container clusters get-credentials ${SPINNAKER_DEPLOY_CLUSTER_FULLNAME} \
     -q --zone ${SPINNAKER_DEPLOY_CLUSTER_ZONE} \
     --project ${SPINNAKER_DEPLOY_PROJECT_NAME}
+

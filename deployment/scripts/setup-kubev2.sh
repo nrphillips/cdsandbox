@@ -26,6 +26,11 @@ kubectl config set-credentials ${KUBE_INSTALL_CONTEXT}-token-user --token $INSTA
 
 kubectl config set-context ${KUBE_INSTALL_CONTEXT} --user ${KUBE_INSTALL_CONTEXT}-token-user
 
+#
+# I think I shouldn't need to do this. The service acount above was simply to allow spinnaker
+# to get access to the spinnaker install cluster. Do I need to give it access to the deployment
+# cluster as well?
+#
 # I'm going to create an identical service account in the deploy context, the account is dictated by the
 # service-account.yml and I'm not certain if I'm allowed to change it?
 kubectl apply --context ${KUBE_DEPLOY_CONTEXT} \
@@ -44,7 +49,7 @@ kubectl config set-credentials ${KUBE_DEPLOY_CONTEXT}-token-user --token $DEPLOY
 
 kubectl config set-context ${KUBE_DEPLOY_CONTEXT} --user ${KUBE_DEPLOY_CONTEXT}-token-user
 
-## ######################################################################################################
+### ######################################################################################################
 ## Grant Spinnaker permissions to GCS (Google Cloud Storage)
 ## Spinnaker requires an external storage provider for persisting application settings and
 ## configured pipelines. Because these data are sensitive and can be costly to lose, we recommend

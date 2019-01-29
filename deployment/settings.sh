@@ -18,8 +18,8 @@ SPINNAKER_INSTALL_CLUSTER_VER=spin
 SPINNAKER_INSTALL_CLUSTER_FULLNAME=${SPINNAKER_INSTALL_CLUSTER}-${SPINNAKER_INSTALL_CLUSTER_VER}
 
 # Cluster region/zone information
-SPINNAKER_INSTALL_CLUSTER_REGION=us-east1
-SPINNAKER_INSTALL_CLUSTER_ZONE=us-east1-b
+SPINNAKER_INSTALL_CLUSTER_REGION=us-central1
+SPINNAKER_INSTALL_CLUSTER_ZONE=us-central1-c
 
 # This is the kubernetes cluster where spinnaker will be deployed. Also ensure that it DOES NOt exist
 # prior to running scripts/setup-deploySPINNAKER_INSTALL_PROJECT_NAME
@@ -28,8 +28,8 @@ SPINNAKER_DEPLOY_CLUSTER_VER=deploy
 SPINNAKER_DEPLOY_CLUSTER_FULLNAME=${SPINNAKER_DEPLOY_CLUSTER}-${SPINNAKER_DEPLOY_CLUSTER_VER}
 
 # Cluster region/zone information
-SPINNAKER_DEPLOY_CLUSTER_REGION=us-east1
-SPINNAKER_DEPLOY_CLUSTER_ZONE=us-east1-b
+SPINNAKER_DEPLOY_CLUSTER_REGION=us-central1
+SPINNAKER_DEPLOY_CLUSTER_ZONE=us-central1-c
 
 # Google Cloud Storage (GCS) bucket that holds spinnaker internal objects.
 # NOTE: SPINNAKER_INSTALL_GCSBUCKET_NAME must be unique across THE ENTIRE GCS NAMESPACE!
@@ -54,10 +54,18 @@ DOCKER_REGISTRY_ADDRESS=gcr.io
 DOCKER_REGISTRY_ACCOUNT=nicks-docker-registry
 DOCKER_REPOSITORY=${SPINNAKER_INSTALL_PROJECT_NAME}/demoservice
 
+BITBUCKET_USERNAME=nicholas_phillips@yahoo.com
+BITBUCKET_PASSWORD=nedis-logis
+BITBUCKET_USERNAME_PASSWORD_FILE=~/bitbucket.pwd
+BITBUCKET_ACCOUNT_NAME=nicks-bitbucket-account
+
 KUBE_ACCOUNT_V1_INSTALL=spin-k8s-v1-install-account
 KUBE_ACCOUNT_V1_DEPLOY=spin-k8s-v1-deploy-account
+
 KUBE_ACCOUNT_V2_INSTALL=spin-k8s-v2-install-account
 KUBE_ACCOUNT_V2_DEPLOY=spin-k8s-v2-deploy-account
+KUBE_ACCOUNT_V2_DEV=dev
+KUBE_ACCOUNT_V2_STAGE=stage
 
 #KUBE_ACCOUNT_V2=spin-k8s-v2-account
 #KUBE_CONTEXT=gke_np-alpha_us-east1-b_np-dev

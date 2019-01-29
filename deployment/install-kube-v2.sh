@@ -25,7 +25,8 @@ hal config provider docker-registry account add ${DOCKER_REGISTRY_ACCOUNT} \
 # pick this up without having to add the repository explicitly, but I found that to not be the case so
 # I had to add it by hand.
 
-hal config provider docker-registry account edit ${DOCKER_REGISTRY_ACCOUNT} --add-repository ${DOCKER_REPOSITORY}
+# Can't do this with multi-level repositories. instead need to enable the Resource Manager API in the gcloud.
+# hal config provider docker-registry account edit ${DOCKER_REGISTRY_ACCOUNT} --add-repository ${DOCKER_REPOSITORY}
 
 # Ensure kubernetes is enabled
 hal config provider kubernetes enable
