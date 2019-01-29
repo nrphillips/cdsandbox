@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demoservice-config
+  namespace: stage
+  annotations:
+    'moniker.spinnaker.io/stack': 'stage'
+    'strategy.spinnaker.io/versioned': 'false'
+  labels:
+    app: demoservice
+    env: stage
+data:
+    args: --gics --capital-iq.cloud-storage.prefix-folder=sources/gics/stage --demo-env=stageTest
+
+  # In deployment
+    env:
+      - name: SPINNAKER_ARGS
+        valueFrom:
+          configMapKeyRef:
+            name: demoservice-config
+            key: args
+            optional: false
+e
+  # Not 100% sure this will work.
+
+    args:
+      - "$(SPINNAKER_ARGS)"

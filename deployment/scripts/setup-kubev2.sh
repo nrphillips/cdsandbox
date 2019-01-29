@@ -44,9 +44,6 @@ kubectl config set-credentials ${KUBE_DEPLOY_CONTEXT}-token-user --token $DEPLOY
 
 kubectl config set-context ${KUBE_DEPLOY_CONTEXT} --user ${KUBE_DEPLOY_CONTEXT}-token-user
 
-
-#source settings.sh
-
 ## ######################################################################################################
 ## Grant Spinnaker permissions to GCS (Google Cloud Storage)
 ## Spinnaker requires an external storage provider for persisting application settings and

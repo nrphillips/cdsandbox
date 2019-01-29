@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'docker'
 
 group = 'gcr.io/np-beta'
-version = '0.3'
+version = '1.0.4'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -58,3 +58,4 @@ task buildDocker(type: Docker, dependsOn: copyJar) {
 	runCommand("unzip -q demoservice-${project.version}.jar")
 	entryPoint(["java","-Xms128m","-Xmx1024m","-cp", "/demoservice-config:.","org.springframework.boot.loader.JarLauncher"])
 }
+
